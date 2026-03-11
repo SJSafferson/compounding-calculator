@@ -1,0 +1,48 @@
+export type Lang = 'sv' | 'en'
+
+export const t = {
+  sv: {
+    title: 'Ränta på ränta',
+    subtitle: 'Se hur ditt kapital växer med sammansatt ränta',
+    compare: 'Jämför scenarier',
+    closeCompare: 'Stäng jämförelse',
+    scenarioA: 'Scenario A',
+    scenarioB: 'Scenario B',
+    principal: 'Startkapital',
+    annualRate: 'Årsränta',
+    years: 'Antal år',
+    monthlyDeposit: 'Månadsinsättning',
+    unitKr: 'kr',
+    unitPct: '%',
+    unitYears: 'år',
+    finalValue: 'Slutvärde',
+    totalDeposited: 'Totalt inbetalt',
+    totalReturn: 'Total avkastning',
+    withInterest: 'Med ränta',
+    yourSavings: 'Ditt sparande',
+    year: 'År',
+  },
+  en: {
+    title: 'Compound Interest',
+    subtitle: 'See how your capital grows with compound interest',
+    compare: 'Compare scenarios',
+    closeCompare: 'Close comparison',
+    scenarioA: 'Scenario A',
+    scenarioB: 'Scenario B',
+    principal: 'Initial amount',
+    annualRate: 'Annual rate',
+    years: 'Number of years',
+    monthlyDeposit: 'Monthly deposit',
+    unitKr: 'kr',
+    unitPct: '%',
+    unitYears: 'yrs',
+    finalValue: 'Final value',
+    totalDeposited: 'Total deposited',
+    totalReturn: 'Total return',
+    withInterest: 'With interest',
+    yourSavings: 'Your savings',
+    year: 'Year',
+  },
+} as const
+
+export type Translations = typeof t.sv

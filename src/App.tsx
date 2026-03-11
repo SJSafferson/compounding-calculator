@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { CalcParams, calculateGrowth } from './utils/calculator'
+import { Lang, t } from './utils/translations'
 import InputForm from './components/InputForm'
 import ResultSummary from './components/ResultSummary'
 import GrowthChart from './components/GrowthChart'
@@ -17,19 +18,27 @@ export default function App() {
   const [params, setParams] = useState<CalcParams>(defaults)
   const [paramsB, setParamsB] = useState<CalcParams>({ ...defaults, annualRate: 5 })
   const [compareMode, setCompareMode] = useState(false)
+  const [lang, setLang] = useState<Lang>('sv')
 
+  const tr = t[lang]
   const data = calculateGrowth(params)
 
   return (
     <div className={styles.app}>
       <header className={styles.header}>
-        <h1>Ränta på ränta</h1>
-        <p>Se hur ditt kapital växer med sammansatt ränta</p>
+        <button
+          className={styles.langBtn}
+          onClick={() => setLang(l => l === 'sv' ? 'en' : 'sv')}
+        >
+          {lang === 'sv' ? 'EN' : 'SV'}
+        </button>
+        <h1>{tr.title}</h1>
+        <p>{tr.subtitle}</p>
         <button
           className={`${styles.compareBtn} ${compareMode ? styles.active : ''}`}
           onClick={() => setCompareMode(v => !v)}
         >
-          {compareMode ? 'Stäng jämförelse' : 'Jämför scenarier'}
+          {compareMode ? tr.closeCompare : tr.compare}
         </button>
       </header>
 
@@ -40,12 +49,13 @@ export default function App() {
             paramsB={paramsB}
             onChangeA={setParams}
             onChangeB={setParamsB}
+            tr={tr}
           />
         ) : (
           <div className={styles.single}>
-            <InputForm params={params} onChange={setParams} />
-            <ResultSummary data={data} />
-            <GrowthChart data={data} />
+            <InputForm params={params} onChange={setParams} tr={tr} />
+            <ResultSummary data={data} tr={tr} />
+            <GrowthChart data={data} tr={tr} />
           </div>
         )}
       </main>

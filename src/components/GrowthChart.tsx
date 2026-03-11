@@ -9,11 +9,13 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { YearlyDataPoint, formatSEK } from '../utils/calculator'
+import { Translations } from '../utils/translations'
 import styles from './GrowthChart.module.css'
 
 interface Props {
   data: YearlyDataPoint[]
   color?: string
+  tr: Translations
 }
 
 function formatYAxis(value: number): string {
@@ -22,11 +24,11 @@ function formatYAxis(value: number): string {
   return String(value)
 }
 
-function CustomTooltip({ active, payload, label }: any) {
+function CustomTooltip({ active, payload, label, tr }: any) {
   if (!active || !payload?.length) return null
   return (
     <div className={styles.tooltip}>
-      <p className={styles.tooltipTitle}>År {label}</p>
+      <p className={styles.tooltipTitle}>{tr.year} {label}</p>
       {payload.map((entry: any) => (
         <p key={entry.dataKey} style={{ color: entry.color }}>
           {entry.name}: {formatSEK(entry.value)}
@@ -36,7 +38,7 @@ function CustomTooltip({ active, payload, label }: any) {
   )
 }
 
-export default function GrowthChart({ data, color = '#4f46e5' }: Props) {
+export default function GrowthChart({ data, color = '#4f46e5', tr }: Props) {
   return (
     <div className={styles.chartWrapper}>
       <ResponsiveContainer width="100%" height={300}>
@@ -44,16 +46,16 @@ export default function GrowthChart({ data, color = '#4f46e5' }: Props) {
           <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
           <XAxis
             dataKey="year"
-            tickFormatter={v => `År ${v}`}
+            tickFormatter={v => `${tr.year} ${v}`}
             tick={{ fontSize: 12 }}
           />
           <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 12 }} width={60} />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip tr={tr} />} />
           <Legend />
           <Line
             type="monotone"
             dataKey="value"
-            name="Med ränta"
+            name={tr.withInterest}
             stroke={color}
             strokeWidth={2.5}
             dot={false}
@@ -62,7 +64,7 @@ export default function GrowthChart({ data, color = '#4f46e5' }: Props) {
           <Line
             type="monotone"
             dataKey="deposited"
-            name="Ditt sparande"
+            name={tr.yourSavings}
             stroke="#a0aec0"
             strokeWidth={2}
             strokeDasharray="5 5"
