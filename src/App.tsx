@@ -21,7 +21,7 @@ export default function App() {
   const [lang, setLang] = useState<Lang>('sv')
 
   const tr = t[lang]
-  const data = calculateGrowth(params)
+  const data = compareMode ? [] : calculateGrowth(params)
 
   return (
     <div className={styles.app}>
@@ -59,6 +59,8 @@ export default function App() {
           </div>
         )}
       </main>
+
+      <footer className={styles.footer}>{tr.disclaimer}</footer>
     </div>
   )
 }

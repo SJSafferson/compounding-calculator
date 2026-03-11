@@ -40,8 +40,8 @@
 }
 
 .value input[type="number"] {
-  width: 90px;
-  padding: 4px 28px 4px 8px;
+  width: 80px;
+  padding: 4px 8px;
   border: 1.5px solid #e2e8f0;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -50,10 +50,51 @@
   text-align: right;
   outline: none;
   transition: border-color 0.15s;
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.value input[type="number"]::-webkit-inner-spin-button,
+.value input[type="number"]::-webkit-outer-spin-button {
+  display: none;
 }
 
 .value input[type="number"]:focus {
   border-color: #4f46e5;
+}
+
+.steppers {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stepBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 18px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  user-select: none;
+}
+
+.stepBtn:nth-child(1) {
+  color: #4f46e5;
+}
+
+.stepBtn:nth-child(2) {
+  color: #e05c2a;
+}
+
+.stepBtn:hover {
+  background: #e2e8f0;
 }
 
 .unit {

@@ -21,6 +21,7 @@ export const t = {
     withInterest: 'Med ränta',
     yourSavings: 'Ditt sparande',
     year: 'År',
+    disclaimer: 'Detta verktyg är avsett för privat bruk endast. Beräkningarna är estimat och ska inte betraktas som finansiell rådgivning.',
   },
   en: {
     title: 'Compound Interest',
@@ -42,6 +43,7 @@ export const t = {
     withInterest: 'With interest',
     yourSavings: 'Your savings',
     year: 'Year',
+    disclaimer: 'This tool is intended for private use only. Calculations are estimates and should not be considered financial advice.',
   },
 } as const
 
