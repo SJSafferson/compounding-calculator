@@ -1,0 +1,24 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .divider {
+    display: none;
+  }
+}
+
+.divider {
+  background: #e2e8f0;
+}
+
+.scenario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
