@@ -45,4 +45,4 @@ export const t = {
   },
 } as const
 
-export type Translations = typeof t.sv
+export type Translations = { [K in keyof typeof t.sv]: string }
