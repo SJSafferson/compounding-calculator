@@ -7,62 +7,57 @@ interface Props {
   label?: string
 }
 
+const sliderConfig = {
+  principal:      { min: 0,   max: 1000000, step: 1000 },
+  annualRate:     { min: 0,   max: 30,      step: 0.1  },
+  years:          { min: 1,   max: 50,      step: 1    },
+  monthlyDeposit: { min: 0,   max: 20000,   step: 100  },
+}
+
 export default function InputForm({ params, onChange, label }: Props) {
   function update(field: keyof CalcParams, raw: string) {
     const value = parseFloat(raw) || 0
     onChange({ ...params, [field]: value })
   }
 
+  function Field({ field, labelText, unit }: { field: keyof CalcParams; labelText: string; unit: string }) {
+    const cfg = sliderConfig[field]
+    return (
+      <div className={styles.field}>
+        <div className={styles.fieldHeader}>
+          <label>{labelText}</label>
+          <span className={styles.value}>
+            <input
+              type="number"
+              min={cfg.min}
+              max={cfg.max}
+              step={cfg.step}
+              value={params[field] || ''}
+              onChange={e => update(field, e.target.value)}
+            />
+            <span className={styles.unit}>{unit}</span>
+          </span>
+        </div>
+        <input
+          type="range"
+          className={styles.slider}
+          min={cfg.min}
+          max={cfg.max}
+          step={cfg.step}
+          value={params[field]}
+          onChange={e => update(field, e.target.value)}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className={styles.form}>
       {label && <h3 className={styles.label}>{label}</h3>}
-
-      <div className={styles.field}>
-        <label>Startkapital (kr)</label>
-        <input
-          type="number"
-          min="0"
-          value={params.principal || ''}
-          onChange={e => update('principal', e.target.value)}
-          placeholder="10 000"
-        />
-      </div>
-
-      <div className={styles.field}>
-        <label>Årsränta (%)</label>
-        <input
-          type="number"
-          min="0"
-          max="100"
-          step="0.1"
-          value={params.annualRate || ''}
-          onChange={e => update('annualRate', e.target.value)}
-          placeholder="7"
-        />
-      </div>
-
-      <div className={styles.field}>
-        <label>Antal år</label>
-        <input
-          type="number"
-          min="1"
-          max="100"
-          value={params.years || ''}
-          onChange={e => update('years', e.target.value)}
-          placeholder="30"
-        />
-      </div>
-
-      <div className={styles.field}>
-        <label>Månadsinsättning (kr)</label>
-        <input
-          type="number"
-          min="0"
-          value={params.monthlyDeposit || ''}
-          onChange={e => update('monthlyDeposit', e.target.value)}
-          placeholder="1 000"
-        />
-      </div>
+      <Field field="principal"      labelText="Startkapital"      unit="kr" />
+      <Field field="annualRate"     labelText="Årsränta"          unit="%" />
+      <Field field="years"          labelText="Antal år"          unit="år" />
+      <Field field="monthlyDeposit" labelText="Månadsinsättning"  unit="kr" />
     </div>
   )
 }
